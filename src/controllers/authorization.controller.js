@@ -1,10 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwtConfig = require('../config/jwtConfig');
 var jwtAsync = require('jsonwebtoken');
-
 const moment = require('moment');
-
-const ApiError = require('../models/apierror.model');
+const apiError = require('../models/apierror.model');
 const connectionPool = require('../config/mySql');
 
 
@@ -25,13 +23,13 @@ module.exports = {
                 connectionPool.query(sqlCreateUserQuery, [req.body.email, hash, req.body.firstname, req.body.lastname], (err, rows, fields) => {
                     if (err) {
                         console.dir(err);
-                        return next(new ApiError(err.sqlMessage, 500));
+                        return next(new apiError(err.sqlMessage, 500));
                     }
 
                     //Done to check if we actually are able to authenticate. -Debug purpose.
                     bcrypt.compare(req.body.password, hash, (err, result) => {
                         if (err) {
-                            return next(new ApiError(err, 500));
+                            return next(new apiError(err, 500));
                         }
 
                         const userObj = { email: req.body.email, id: rows.insertId };
@@ -40,7 +38,7 @@ module.exports = {
                         jwtAsync.sign(userObj, jwtConfig.secret, (err, authRes) => {
                             if (err) {
                                 console.dir(err);
-                                return next(new ApiError(err, 500));
+                                return next(new apiError(err, 500));
                             }
 
                             res.set('x-access-token', authRes);
@@ -51,7 +49,7 @@ module.exports = {
             });
         }
         else {
-            return next(new ApiError('Posted object not correct!', 500));
+            return next(new apiError('Posted object not correct!', 500));
         }
     },
     me(req, res, next) {
@@ -68,7 +66,7 @@ module.exports = {
                 res.status(200).send(decoded);
             }
             else {
-                next(new ApiError('Authorization - No token provided.', '401'));
+                next(new apiError('Authorization - No token provided.', '401'));
             }
         });
     },
@@ -76,7 +74,7 @@ module.exports = {
         console.log('Authcontroller.login called');
 
         if (!(req.body.email && req.body.password))
-            return next(new ApiError('Please provide your information.', '401'));
+            return next(new apiError('Please provide your information.', '401'));
 
         var email = req.body.email;
         var password = req.body.password;
@@ -86,7 +84,7 @@ module.exports = {
         connectionPool.query(sqlQueryByEmail, [email], function (err, rows, fields) {
             if (err) {
                 console.dir(err);
-                return next(new ApiError(err.sqlMessage, 500));
+                return next(new apiError(err.sqlMessage, 500));
             }
 
             if (rows.length > 0) {
@@ -98,7 +96,7 @@ module.exports = {
                         jwtAsync.sign(userObj, jwtConfig.secret, (err, authRes) => {
                             if (err) {
                                 console.dir(err);
-                                return next(new ApiError(err, 500));
+                                return next(new apiError(err, 500));
                             }
 
                             res.set('x-access-token', authRes);
@@ -106,11 +104,11 @@ module.exports = {
                         });
                     }
                     else {
-                        return next(new ApiError('Authentication failed', 500));
+                        return next(new apiError('Authentication failed', 500));
                     }
                 });
             } else {
-                next(new ApiError('Authentication failed', 500));
+                next(new apiError('Authentication failed', 500));
             }
         });
     }
