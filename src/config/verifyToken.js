@@ -3,7 +3,6 @@ const jwtConfig = require('./jwtConfig');
 var jwtAsync = require('jsonwebtoken');
 const apiError = require('../models/apierror.model');
 
-
 function verifyToken(req, res, next) {
     const token = req.headers['x-access-token'];
     

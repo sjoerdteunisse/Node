@@ -5,7 +5,6 @@ const moment = require('moment');
 const apiError = require('../models/apierror.model');
 const connectionPool = require('../config/mySql');
 
-
 const saltRounds = 10;
 
 module.exports = {

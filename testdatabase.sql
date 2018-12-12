@@ -1,14 +1,14 @@
-DROP DATABASE IF EXISTS `gamedb`;
-CREATE DATABASE `gamedb`;
-USE `gamedb`;
+DROP DATABASE IF EXISTS `nodedb_test`;
+CREATE DATABASE `nodedb_test`;
+USE `nodedb_test`;
 
 -- gamedb_user aanmaken
-CREATE USER 'gamedb_user'@'%' IDENTIFIED BY 'secret';
-CREATE USER 'gamedb_user'@'localhost' IDENTIFIED BY 'secret';
+CREATE USER 'nodeDB_user'@'%' IDENTIFIED BY 'secret';
+CREATE USER 'nodeDB_user'@'localhost' IDENTIFIED BY 'secret';
 
 -- geef in een keer alle rechten - soort administrator!
-GRANT ALL ON `gamedb`.* TO 'gamedb_user'@'%';
-GRANT ALL ON `gamedb`.* TO 'gamedb_user'@'localhost';
+GRANT ALL ON `nodedb_test`.* TO 'nodeDB_user'@'%';
+GRANT ALL ON `nodedb_test`.* TO 'nodeDB_user'@'localhost';
 
 -- -----------------------------------------------------
 -- Table `users`
@@ -24,3 +24,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 	PRIMARY KEY (`ID`)
 ) 
 ENGINE = InnoDB;
+
+INSERT INTO `users` (`firstname`, `lastname`, `email`, `password`) 
+VALUES ('user-1', 'name-1', 'user1@server.nl', 'secret')
