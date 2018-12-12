@@ -1,5 +1,5 @@
-//const gameController = require('./src/controllers/game.controller');
 const apiError = require('./src/models/apierror.model');
+//const gameController = require('./src/controllers/game.controller');
 //const gameRoutes = require('./src/routes/game.routes');
 const authorizationRoutes = require('./src/routes/authorization.routes');
 
@@ -15,9 +15,11 @@ app.use(bodyParser.json());
 
 //Base routing
 //app.use('/api', gameRoutes);
+
+//Authorization routes
 app.use('/api', authorizationRoutes);
 
-//Handler non existent routes
+//Handler for non existent routes
 app.use('*', (req, res, next) =>{ 
   next(new apiError('Non existing endpoint', '404'))
 });
@@ -27,6 +29,6 @@ app.use("*", (err, req, res, next) =>{
     res.status(err.errorStatus >= 100 && err.errorStatus < 600 ? err.errorStatus : 500).json(err).end();
 });
 
-app.listen(expressPort, () => console.log(`Example app listening on ${expressPort}`));
+app.listen(expressPort, () => console.log(`App server listening on ${expressPort}`));
 
 module.exports = app
