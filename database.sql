@@ -2,11 +2,9 @@ DROP DATABASE IF EXISTS `nodedb`;
 CREATE DATABASE `nodedb`;
 USE `nodedb`;
 
--- gamedb_user aanmaken
 CREATE USER 'nodeDB_user'@'%' IDENTIFIED BY 'secret';
 CREATE USER 'nodeDB_user'@'localhost' IDENTIFIED BY 'secret';
 
--- geef in een keer alle rechten - soort administrator!
 GRANT ALL ON `nodedb`.* TO 'nodeDB_user'@'%';
 GRANT ALL ON `nodedb`.* TO 'nodeDB_user'@'localhost';
 
