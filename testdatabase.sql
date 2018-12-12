@@ -2,13 +2,11 @@ DROP DATABASE IF EXISTS `nodedb_test`;
 CREATE DATABASE `nodedb_test`;
 USE `nodedb_test`;
 
--- gamedb_user aanmaken
-CREATE USER 'nodeDB_user'@'%' IDENTIFIED BY 'secret';
-CREATE USER 'nodeDB_user'@'localhost' IDENTIFIED BY 'secret';
+CREATE USER 'nodeDB_test_user'@'%' IDENTIFIED BY 'secret';
+CREATE USER 'nodeDB_test_user'@'localhost' IDENTIFIED BY 'secret';
 
--- geef in een keer alle rechten - soort administrator!
-GRANT ALL ON `nodedb_test`.* TO 'nodeDB_user'@'%';
-GRANT ALL ON `nodedb_test`.* TO 'nodeDB_user'@'localhost';
+GRANT ALL ON `nodedb_test`.* TO 'nodeDB_test_user'@'%';
+GRANT ALL ON `nodedb_test`.* TO 'nodeDB_test_user'@'localhost';
 
 -- -----------------------------------------------------
 -- Table `users`
@@ -19,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`firstname` VARCHAR(32) NOT NULL,
 	`lastname` VARCHAR(64) NOT NULL,
 	`email` VARCHAR(64) NOT NULL UNIQUE,
-	`password` VARCHAR(32) NOT NULL,
+	`password` VARCHAR(128) NOT NULL,
 	`lastupdated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`ID`)
 ) 

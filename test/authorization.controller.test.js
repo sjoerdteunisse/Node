@@ -24,17 +24,17 @@ describe('Auth API', () => {
         // Verwijder alle voorgaande users uit de tabel
         const query = 'DELETE FROM `users`'
         const cd = 'DELETE FROM `games`';
-        pool.query(cd, (err, rows, fields) => {
-            if (err) {
-                console.dir(err);
-                assert.fail(err)
-            }
-            var queryReset = 'ALTER TABLE games AUTO_INCREMENT = 1';
-            pool.query(queryReset, (err, rows, fields) => {
-                if (err) {
-                    console.dir(err);
-                    assert.fail(err)
-                }
+        // pool.query(cd, (err, rows, fields) => {
+        //     if (err) {
+        //         console.dir(err);
+        //         assert.fail(err)
+        //     }
+            // var queryReset = 'ALTER TABLE games AUTO_INCREMENT = 1';
+            // pool.query(queryReset, (err, rows, fields) => {
+            //     if (err) {
+            //         console.dir(err);
+            //         assert.fail(err)
+            //     }
                 bcrypt.hash(user.password, saltRounds, (err, hash) => {
 
                     pool.query(query, (err, rows, fields) => {
@@ -57,8 +57,8 @@ describe('Auth API', () => {
 
                         }
                     })
-                });
-            });
+            //     });
+            // });
         });
 
     });
@@ -126,7 +126,7 @@ describe('Auth API', () => {
 
         bcrypt.hash(user.password, saltRounds, (err, hash) => {
             chai.request(server)
-                .get('/api/user/login')
+                .post('/api/user/login')
                 .send(user)
                 .end(function (err, res) {
                     res.should.have.status(500);
@@ -145,7 +145,7 @@ describe('Auth API', () => {
 
         bcrypt.hash(user.password, saltRounds, (err, hash) => {
             chai.request(server)
-                .get('/api/user/login')
+                .post('/api/user/login')
                 .send(user)
                 .end(function (err, res) {
                     res.should.have.status(200);
@@ -153,7 +153,7 @@ describe('Auth API', () => {
                     res.body.should.be.an('object');
                     res.body.should.have.property('token').that.is.a('string');
 
-                    console.log('Returnns the following: ' + res.body.token);
+                    //console.log('Returnns the following: ' + res.body.token);
 
 
 

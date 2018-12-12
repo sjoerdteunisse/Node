@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules\\.bin\\nodemon"
+    "test": "set DB_NAME=nodedb_test&& set DB_USER=nodeDB_test_user&& set DB_PASSWORD=secret&& mocha --reporter spec --exit",
+    "start": "nodemon"
   },
   "repository": {
     "type": "git",

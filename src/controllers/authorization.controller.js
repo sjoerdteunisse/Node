@@ -88,6 +88,7 @@ module.exports = {
 
             if (rows.length > 0) {
                 bcrypt.compare(password, rows[0].password, (err, compareResult) => {
+
                     if (compareResult) {
 
                         const userObj = { id: rows[0].ID, email: email };
