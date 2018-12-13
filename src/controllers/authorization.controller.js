@@ -13,6 +13,10 @@ module.exports = {
         console.log('Authcontroller.register called');
 
         if (req.body.email && req.body.password && req.body.firstname && req.body.lastname) {
+
+            if(req.body.password.length < 6)
+                return next(new apiError('Password length to short', '422'));
+
             const sqlCreateUserQuery = "INSERT INTO users (email, password, firstname, lastname) VALUES ( ?, ?, ?, ? )";
 
             //Run hash alogirthm based on pushed raw password and the amount of salt rounds.
@@ -32,7 +36,6 @@ module.exports = {
                         }
 
                         const userObj = { email: req.body.email, id: rows.insertId };
-
 
                         jwtAsync.sign(userObj, jwtConfig.secret, (err, authRes) => {
                             if (err) {
