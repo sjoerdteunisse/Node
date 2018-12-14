@@ -1,15 +1,20 @@
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const jwtConfig = require('../config/jwtConfig');
 var jwtAsync = require('jsonwebtoken');
 const moment = require('moment');
 const apiError = require('../models/apierror.model');
 const connectionPool = require('../config/mySql');
 
-const saltRounds = 10;
+const crypto = require('crypto');
+const sharedKey = 'zKYv2)S^r_?`QFgz';
+
 
 module.exports = {
 
     register(req, res, next) {
+
         console.log('Authcontroller.register called');
 
         if (req.body.email && req.body.password && req.body.firstname && req.body.lastname) {
@@ -51,7 +56,7 @@ module.exports = {
             });
         }
         else {
-            return next(new apiError('Posted object not correct!', 500));
+            return next(new apiError('Please fill in all the details', 500));
         }
     },
     me(req, res, next) {
