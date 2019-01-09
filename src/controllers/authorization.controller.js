@@ -22,7 +22,7 @@ module.exports = {
             const sqlCreateUserQuery = "INSERT INTO users (email, password, firstname, lastname) VALUES ( ?, ?, ?, ? )";
 
             //Run hash alogirthm based on pushed raw password and the amount of salt rounds.
-            //Where hash derivitive of cycles = $X$^y$ and X = 2 the Y = hashround ^ 10.
+            //Where hash derivitive of cycles = $X$^y$ segmented in X = 2 the Y = hashround ^ 10.
             bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
                 connectionPool.query(sqlCreateUserQuery, [req.body.email, hash, req.body.firstname, req.body.lastname], (err, rows, fields) => {
                     if (err) {

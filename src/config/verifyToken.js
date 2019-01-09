@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
     jwtAsync.verify(token, jwtConfig.secret, function(err, decoded) {
    
         if(err){
-            return next(new apiError('Authorization - Token invalid - try logging in again.', '401'))
+            return next(new apiError('Authorization - Token invalid - try logging in again.', 401))
         }
 
         if (decoded.id) {
@@ -24,7 +24,7 @@ function verifyToken(req, res, next) {
             next();
         } //Token not right
         else {
-            next(new apiError('Authorization - No token provided.', '401'));
+            next(new apiError('Authorization - No token provided.', 401));
         }
     });
 }
