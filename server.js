@@ -1,33 +1,34 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const gameRoutes = require('./src/routes/game.routes')
-const ApiError = require('./src/models/apierror.model')
+const apiError = require('./src/models/apierror.model');
+//const gameController = require('./src/controllers/game.controller');
+//const gameRoutes = require('./src/routes/game.routes');
+const authorizationRoutes = require('./src/routes/authorization.routes');
 
-var app = express()
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan =  require('morgan');
+var app = express();
 
-app.use(morgan('dev'))
-app.use(bodyParser.json())
+const expressPort = process.env.PORT || 3000;
 
-const port = process.env.PORT || 3000
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 
-// reguliere routing
-app.use('/api', gameRoutes)
+//Base routing
+//app.use('/api', gameRoutes);
 
-// handler voor niet-bestaande routes
-app.use('*', (req, res, next) => {
-	next(new ApiError('Non-existing endpoint', 404))
-})
+//Authorization routes
+app.use('/api', authorizationRoutes);
 
-// handler voor errors
-app.use('*', (err, req, res, next) => {
-	// hier heb ik de error
-	console.dir(err)
-	// -> return response naar caller
-	res.status(err.code).json({error: err}).end()
-})
+//Handler for non existent routes
+app.use('*', (req, res, next) =>{ 
+  next(new apiError('Non existing endpoint', '404'))
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.use("*", (err, req, res, next) =>{
+    console.log('Error handler encountered: ' + err.errorName + ' On: ');
+    res.status(err.errorStatus >= 100 && err.errorStatus < 600 ? err.errorStatus : 500).json(err).end();
+});
 
-// for testing purpose
+app.listen(expressPort, () => console.log(`App server listening on ${expressPort}`));
+
 module.exports = app

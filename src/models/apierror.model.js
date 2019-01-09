@@ -1,12 +1,9 @@
-
-class ApiError {
-
-	constructor(msg, code) {
-		this.message = msg;
-		this.code = code;
-		this.date = new Date();
-	}
-
+class Error{
+    constructor(errorName, errorStatus){
+        this.errorName = errorName;
+        this.errorStatus = errorStatus;
+        this.timeStamp = new Date();
+    }
 }
 
-module.exports = ApiError
+module.exports = Error;

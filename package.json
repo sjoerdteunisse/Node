@@ -1,31 +1,37 @@
 {
-  "name": "firstapp",
-  "version": "0.1.0",
-  "description": "My first nodejs express app",
+  "name": "node_exam",
+  "version": "1.0.0",
+  "description": "node exam",
   "main": "server.js",
-  "engines": {
-    "node": "^10.13.0",
-    "npm": "^6.4.1"
+  "directories": {
+    "test": "test"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "./node_modules/.bin/mocha --reporter spec --exit"
+    "test": "set DB_NAME=nodedb_test&& set DB_USER=nodeDB_test_user&& set DB_PASSWORD=secret&& mocha --reporter spec --exit",
+    "start": "nodemon"
   },
-  "keywords": [
-    "nodejs",
-    "express"
-  ],
-  "author": "Robin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjoerdteunisse/Node.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjoerdteunisse/Node/issues"
+  },
+  "homepage": "https://github.com/sjoerdteunisse/Node#readme",
   "dependencies": {
+    "bcrypt": "^3.0.2",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mocha": "^5.2.0",
+    "moment": "^2.22.2",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.4"
   },
   "devDependencies": {
-    "nodemon": "^1.18.7",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
-    "mocha": "^5.1.1"
+    "nodemon": "^1.18.7"
   }
 }
