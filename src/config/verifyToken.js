@@ -7,7 +7,7 @@ function verifyToken(req, res, next) {
     const token = req.headers['x-access-token'];
     
     if (!token)
-       return next(new apiError('Authorization - No token provided.', '401'))
+       return next(new apiError('Authorization - No token provided.', 401))
 
     console.log(token);
 
