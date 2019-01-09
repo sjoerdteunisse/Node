@@ -1,0 +1,54 @@
+Links naar online info:
+- https://www.chaijs.com/api/bdd/
+
+Huiswerk voor volgende les (3):
+
+Maak testcases waarmee je de api test die we 
+tot nu toe gemaakt hebben. De api biedt endpoints voor /api/games
+en /api/games/:id. Een request naar een van deze api's geeft
+je een resultaat. Check of dat het resultaat is dat je verwacht.
+Alle andere requests zouden een foutmelding moeten geven. 
+Check ook of dat de foutmelding is die je verwacht.
+
+Er zijn nu 2 bestanden met testcases:
+	- Game.test.js: unittest op Game class
+	- game.controller.test.js: integratietest op server
+
+Bekijk game.controller.test.js; daarin staat al veel voorbeeldcode.
+Die code werkt nog niet overal, en is soms ook verkeerd of nog niet af. 
+Aan jou de opdracht om de tests aan te vullen en af te maken.
+
+Wat ga je testen:
+GET /api/games -> zou goed moeten gaan
+GET /api/games/0 -> zou goed moeten gaan
+GET /api/games/123 -> verwacht juiste error
+GET /api/doesnotexist -> verwacht juiste error
+
+Wat mooi zou zijn:
+POST /api/games met goede req.body -> verwacht juiste resultaat
+POST /api/games met foutieve req.body -> verwacht juiste error
+
+
+Voorbeelden:
+- een GET op /api/games
+	- moet HTTP code 200 retourneren
+	- moet resultaten teruggeven
+		dat een array is
+		dat bestaat uit de verwachte waarden
+		dat de verwachte lengte heeft
+		waarvan iedere waarde een object is, met 
+			name, die een string is, met de verwachte waarde
+			producer, die enz enz.
+			year, ...
+			type, ...
+
+- een GET naar een endpoint die niet bestaat
+	- moet geen HTTP maar 404 of 500 (of iets anders) retourneren
+	- moet de juiste error bevatten
+		- wat een object is
+		- met een passende message
+		- met de juiste code 
+
+Dus 
+- je checkt in je tests dat je terug krijgt wat je verwacht als het goed gaat,
+- en je checkt dat je bij foutsituaties ook krijgt wat je verwacht.

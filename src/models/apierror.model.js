@@ -1,9 +1,12 @@
-class Error{
-    constructor(errorName, errorStatus){
-        this.errorName = errorName;
-        this.errorStatus = errorStatus;
-        this.timeStamp = new Date();
-    }
+
+class ApiError {
+
+	constructor(msg, code) {
+		this.message = msg;
+		this.code = code;
+		this.date = new Date();
+	}
+
 }
 
-module.exports = Error;
+module.exports = ApiError
