@@ -62,7 +62,6 @@ module.exports = {
     me(req, res, next) {
         console.log('Authcontroller.me called');
 
-        //Get from header.
         var token = req.headers['x-access-token'];
         if (!token)
             return res.status(401).send({ auth: false, message: 'No token provided.' });
@@ -112,11 +111,11 @@ module.exports = {
                         });
                     }
                     else {
-                        return next(new apiError('Authentication failed', 500));
+                        return next(new apiError('Authentication failed', 401));
                     }
                 });
             } else {
-                next(new apiError('Authentication failed', 500));
+                next(new apiError('Authentication failed', 401));
             }
         });
     }
