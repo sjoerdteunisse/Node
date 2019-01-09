@@ -102,13 +102,13 @@ module.exports = {
                     }
                     else {
                         //When the user failes to provide the correct credentials
-                        return next(new apiError('Authentication failed', 500));
+                        return next(new apiError('Authentication failed', 401));
                     }
                 });
             } else {
                 //When the user that tries to login, uses a identifier that doesn't exist.
                 //Not hinting the account doesn't existing.
-                next(new apiError('Authentication failed', 500));
+                next(new apiError('Authentication failed', 401));
             }
         });
     }
